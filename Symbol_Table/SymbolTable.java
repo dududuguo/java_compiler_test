@@ -26,4 +26,8 @@ public class  SymbolTable {
     public Set<String> keySet() {
         return symbols.keySet();
     }
+
+    public Map<String, Symbol> getSymbols() {
+        return symbols;
+    }
 }

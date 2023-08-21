@@ -30,45 +30,55 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitStat(SimpleExprParser.StatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#classDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleExprParser#assignStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassDeclaration(SimpleExprParser.ClassDeclarationContext ctx);
+	void enterAssignStatement(SimpleExprParser.AssignStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#classDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleExprParser#assignStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassDeclaration(SimpleExprParser.ClassDeclarationContext ctx);
+	void exitAssignStatement(SimpleExprParser.AssignStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#classBody}.
+	 * Enter a parse tree produced by {@link SimpleExprParser#postIncrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassBody(SimpleExprParser.ClassBodyContext ctx);
+	void enterPostIncrementStatement(SimpleExprParser.PostIncrementStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#classBody}.
+	 * Exit a parse tree produced by {@link SimpleExprParser#postIncrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassBody(SimpleExprParser.ClassBodyContext ctx);
+	void exitPostIncrementStatement(SimpleExprParser.PostIncrementStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#methodDeclaration}.
+	 * Enter a parse tree produced by {@link SimpleExprParser#postDecrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodDeclaration(SimpleExprParser.MethodDeclarationContext ctx);
+	void enterPostDecrementStatement(SimpleExprParser.PostDecrementStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#methodDeclaration}.
+	 * Exit a parse tree produced by {@link SimpleExprParser#postDecrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodDeclaration(SimpleExprParser.MethodDeclarationContext ctx);
+	void exitPostDecrementStatement(SimpleExprParser.PostDecrementStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#visibility}.
+	 * Enter a parse tree produced by {@link SimpleExprParser#preIncrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterVisibility(SimpleExprParser.VisibilityContext ctx);
+	void enterPreIncrementStatement(SimpleExprParser.PreIncrementStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#visibility}.
+	 * Exit a parse tree produced by {@link SimpleExprParser#preIncrementStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitVisibility(SimpleExprParser.VisibilityContext ctx);
+	void exitPreIncrementStatement(SimpleExprParser.PreIncrementStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#preDecrementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreDecrementStatement(SimpleExprParser.PreDecrementStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#preDecrementStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreDecrementStatement(SimpleExprParser.PreDecrementStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#expr}.
 	 * @param ctx the parse tree
@@ -150,16 +160,6 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitDeclaration(SimpleExprParser.DeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#functionDefinition}.
 	 * @param ctx the parse tree
 	 */
@@ -170,15 +170,25 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitFunctionDefinition(SimpleExprParser.FunctionDefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * Enter a parse tree produced by {@link SimpleExprParser#mainFunction}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameterList(SimpleExprParser.ParameterListContext ctx);
+	void enterMainFunction(SimpleExprParser.MainFunctionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * Exit a parse tree produced by {@link SimpleExprParser#mainFunction}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameterList(SimpleExprParser.ParameterListContext ctx);
+	void exitMainFunction(SimpleExprParser.MainFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#normalFunction}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalFunction(SimpleExprParser.NormalFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#normalFunction}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalFunction(SimpleExprParser.NormalFunctionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#parameter}.
 	 * @param ctx the parse tree
@@ -200,6 +210,36 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitType(SimpleExprParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(SimpleExprParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(SimpleExprParser.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#paramList}.
+	 * @param ctx the parse tree
+	 */
+	void enterParamList(SimpleExprParser.ParamListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#paramList}.
+	 * @param ctx the parse tree
+	 */
+	void exitParamList(SimpleExprParser.ParamListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam(SimpleExprParser.ParamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam(SimpleExprParser.ParamContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#varDeclaration}.
 	 * @param ctx the parse tree
 	 */
@@ -209,4 +249,24 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVarDeclaration(SimpleExprParser.VarDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameterList(SimpleExprParser.ParameterListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameterList(SimpleExprParser.ParameterListContext ctx);
 }

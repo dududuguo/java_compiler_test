@@ -55,6 +55,11 @@ WS: [ \t\n\r]+ -> skip ; // 空格, tab, 换行符, 回车符, 跳过
 Sl_COMMENT: '//' ~[\r\n]* -> skip ; // 单行注释, 除了换行符其他的所有字符都可以
 DOC_COMMENT: '/**' .*? '*/' -> skip ; // 文档注释
 ML_COMMENT: '/*' .*? '*/' -> skip ; // 多行注释
+parameterList: parameter (',' parameter)*;
+
+
+
+
 
 
 fragment DIGIT: [0-9] ;

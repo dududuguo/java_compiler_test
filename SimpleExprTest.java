@@ -1,17 +1,19 @@
 import ANTLR_code.SimpleExprLexer;
+import ANTLR_code.SimpleExprParser;
 import AST.ASTConstructorListener;
 import AST.ASTNode;
-import Symbol_Table.Symbol;
-import Symbol_Table.SymbolTable;
-import org.antlr.v4.runtime.*;
+import assembly.AssemblyGenerator;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import ANTLR_code.SimpleExprParser;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class SimpleExprTest {
     public static void main(String[] args) throws IOException {
@@ -27,38 +29,42 @@ public class SimpleExprTest {
 
         // 1. Parse the source code with ANTLR to get a parse tree
         SimpleExprLexer lexer = new SimpleExprLexer(input);
-
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+        SimpleExprParser parser = new SimpleExprParser(tokens);
+        ParseTree tree = parser.prog();
 
-        SimpleExprParser parser;
-        parser = new SimpleExprParser(tokens);
-
-        parser.removeErrorListeners(); // remove default error listener
-        parser.addErrorListener(new BaseErrorListener() {
-            @Override
-            public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-                System.err.println("line " + line + ":" + charPositionInLine + " " + msg);
-            }
-        });
-
-
-        ParseTree parseTree = parser.prog();
-
-        // 2. Construct the AST using a listener
+        // 2. Construct AST from the parse tree
         ASTConstructorListener astConstructor = new ASTConstructorListener();
-
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(astConstructor, parseTree);
-
-        // 3. Print the AST
+        walker.walk(astConstructor, tree);
         ASTNode ast = astConstructor.getAST();
-        //ast.print(0);
 
-        System.out.println("Symbol Table:");
-        var symbolTable = astConstructor.getSymbolTable();
-        for (String varName : symbolTable.getAllSymbols().keySet()) {
-            Symbol symbol = symbolTable.getSymbol(varName);
-            System.out.println("Name: " + symbol.getName() + ", Type: " + symbol.getType());
+        // 3. Generate assembly code from AST
+        AssemblyGenerator generator = new AssemblyGenerator();
+        String assemblyCode = generator.generateFromAST(ast);
+        String initialAssembly = generator.generateInitialAssemblyHeaders();
+        String entryAssembly=generator.generateFunctionPrologue();
+        String exitAssembly=generator.generateFunctionEpilogue();
+        assemblyCode = initialAssembly +entryAssembly + assemblyCode+exitAssembly;
+
+        // write to file
+        String program = "program";
+        String fileName = program+ ".s";
+        writeToFile(fileName, assemblyCode);
+        System.out.println("Writing to " + fileName);
+
+        // 4. Print the generated assembly code
+        System.out.println(assemblyCode);
+    }
+
+    private static void writeToFile(String fileName, String assemblyCode) {
+        try {
+            PrintWriter writer = new PrintWriter(fileName, StandardCharsets.UTF_8);
+            writer.println(".file \t\"" + fileName + "\"");
+            writer.println(assemblyCode);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file");
         }
     }
 }

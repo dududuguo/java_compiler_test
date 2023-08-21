@@ -8,12 +8,15 @@ import SimpleExprRules;
 prog: stat* EOF;
 
 stat
-    :varDeclaration
-    |expr ';'
-    | declaration
-    | functionDeclaration
+    : functionDeclaration ';'
+    | varDeclaration ';'
+    | assignStatement ';'
+    | postIncrementStatement ';'
+    | postDecrementStatement ';'
+    | preIncrementStatement ';'
+    | preDecrementStatement ';'
+    | expr ';'
     | functionDefinition
-    | classDeclaration
     | 'if' condi '{' stat* '}'
         ('else' 'if' condi '{' stat* '}')*
         ('else' '{' stat* '}')?
@@ -23,15 +26,11 @@ stat
     | 'return' expr ';'
     ;
 
-
-
-classDeclaration: visibility? 'class' ID '{' classBody* '}' ;
-
-classBody: methodDeclaration | declaration ;
-
-methodDeclaration: type ID LPAREN parameterList? RPAREN '{' stat* '}' ;
-
-visibility: 'public' | 'private' | 'protected' ;
+assignStatement: ID '=' expr;
+postIncrementStatement: ID '++';
+postDecrementStatement: ID '--';
+preIncrementStatement: '++' ID;
+preDecrementStatement: '--' ID;
 
 expr
     : multiplyExpr ( (ADD | MINUS) multiplyExpr)*
@@ -42,12 +41,7 @@ multiplyExpr
     ;
 
 atomicExpr
-    : ID '=' expr
-    | ID '++'
-    | ID '--'
-    | '++' ID
-    | '--' ID
-    | ID
+    : ID
     | INT
     | FLOAT
     | LPAREN expr RPAREN
@@ -66,16 +60,19 @@ forIter: ID '=' expr | ID '++' | '++' ID | ID '--' | '--' ID;
 
 declaration : type ID ('=' expr)? ';';
 
-functionDeclaration: type ID LPAREN parameterList? RPAREN ';';
-
-functionDefinition: type ID LPAREN parameterList? RPAREN '{' stat* '}';
-
-parameterList: parameter (',' parameter)*;
+functionDefinition: mainFunction | normalFunction;
+mainFunction: 'int' 'main' LPAREN RPAREN '{' stat* '}';
+normalFunction: type ID LPAREN parameterList? RPAREN '{' stat* '}';
 
 parameter: type ID;
+type: INT_KEYWORD | FLOAT_KEYWORD | STRING_KEYWORD | BOOL_KEYWORD | VOID_KEYWORD | ID;
+block: '{' stat* '}';
+paramList: param (',' param)*;
+param: type ID;
 
-type: INT_KEYWORD | FLOAT_KEYWORD | STRING_KEYWORD | BOOL_KEYWORD| VOID_KEYWORD | ID;
+varDeclaration: type ID ('=' expr)?;
 
-varDeclaration
-              : type ID ';'
-              ;
+functionDeclaration: type ID LPAREN (paramList)? RPAREN block;
+
+
+

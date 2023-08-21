@@ -14,7 +14,7 @@ public class soot_test {
         String yourClassPath = "C:\\Users\\11388\\IdeaProjects\\demo\\target\\classes";
         String sootClassPath = yourClassPath + ";" + Scene.v().getSootClassPath();
         Scene.v().setSootClassPath(sootClassPath);
-        String className = "q1.java";
+        String className = "q1.c";
 
         // Set Soot's internal classpath
         Options.v().set_soot_classpath(yourClassPath);
