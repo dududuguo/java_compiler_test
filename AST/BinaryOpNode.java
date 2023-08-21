@@ -44,6 +44,4 @@ public class BinaryOpNode extends ASTNode{
     public void setRight(ASTNode right) {
         this.right = right;
     }
-
-
 }

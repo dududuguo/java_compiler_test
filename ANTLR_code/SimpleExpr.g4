@@ -1,4 +1,5 @@
 grammar SimpleExpr;
+
 import SimpleExprRules;
 
 @header {
@@ -26,26 +27,30 @@ stat
     | 'return' expr ';'
     ;
 
+expr
+    : expr ADD multiplyExpr        # AddExpr
+    | expr MINUS multiplyExpr     # SubtractExpr
+    | multiplyExpr                # BaseExpr
+    ;
+
+multiplyExpr
+    : multiplyExpr MUL atomicExpr  # MultiplicationExpression
+    | multiplyExpr DIV atomicExpr  # DivideExpr
+    | atomicExpr                  # BaseMultiplyExpr
+    ;
+
+atomicExpr
+    : ID                          # IdExpr
+    | INT                         # IntLiteral
+    | FLOAT                       # FloatLiteral
+    | LPAREN expr RPAREN          # ParenExpr
+    ;
+
 assignStatement: ID '=' expr;
 postIncrementStatement: ID '++';
 postDecrementStatement: ID '--';
 preIncrementStatement: '++' ID;
 preDecrementStatement: '--' ID;
-
-expr
-    : multiplyExpr ( (ADD | MINUS) multiplyExpr)*
-    ;
-
-multiplyExpr
-    : atomicExpr ( (MUL | DIV) atomicExpr)*
-    ;
-
-atomicExpr
-    : ID
-    | INT
-    | FLOAT
-    | LPAREN expr RPAREN
-    ;
 
 condi: expr (BIGGER | SMALLER | BIGGER_EQUAL | SMALLER_EQUAL | EQUAL | NOT_EQUAL) expr;
 
@@ -58,7 +63,7 @@ forInit: declaration;
 
 forIter: ID '=' expr | ID '++' | '++' ID | ID '--' | '--' ID;
 
-declaration : type ID ('=' expr)? ';';
+declaration: type ID ('=' expr)? ';';
 
 functionDefinition: mainFunction | normalFunction;
 mainFunction: 'int' 'main' LPAREN RPAREN '{' stat* '}';
@@ -68,11 +73,9 @@ parameter: type ID;
 type: INT_KEYWORD | FLOAT_KEYWORD | STRING_KEYWORD | BOOL_KEYWORD | VOID_KEYWORD | ID;
 block: '{' stat* '}';
 paramList: param (',' param)*;
+parameterList: parameter (',' parameter)*;
 param: type ID;
 
 varDeclaration: type ID ('=' expr)?;
 
 functionDeclaration: type ID LPAREN (paramList)? RPAREN block;
-
-
-

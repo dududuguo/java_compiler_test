@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 public class SimpleExprTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         System.out.println("Loading");
         InputStream is = System.in;
         String file;
@@ -41,11 +41,11 @@ public class SimpleExprTest {
 
         // 3. Generate assembly code from AST
         AssemblyGenerator generator = new AssemblyGenerator();
-        String assemblyCode = generator.generateFromAST(ast);
-        String initialAssembly = generator.generateInitialAssemblyHeaders();
-        String entryAssembly=generator.generateFunctionPrologue();
-        String exitAssembly=generator.generateFunctionEpilogue();
-        assemblyCode = initialAssembly +entryAssembly + assemblyCode+exitAssembly;
+        String headers = generator.generateInitialAssemblyHeaders();
+        String prologue = generator.generateFunctionPrologue(12);  // 3 variables * 4 bytes each = 12 bytes
+        String body = generator.generateFromAST(ast);  // rootNode 是从ANTLR解析器获得的AST树的根
+        String epilogue = generator.generateFunctionEpilogue();
+        String assemblyCode = headers + prologue + body + epilogue;
 
         // write to file
         String program = "program";

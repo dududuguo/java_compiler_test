@@ -5,6 +5,8 @@ import AST.BinaryOpNode;
 import AST.LiteralNode.IdentifierNode;
 import AST.LiteralNode.IntLiteralNode;
 import Symbol_Table.SymbolTable;
+import statement.AssignStatementNode;
+import statement.VarDeclarationNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,91 +17,128 @@ public class AssemblyGenerator {
     private int stackOffset = 0;
 
     public String generateInitialAssemblyHeaders() {
-        return ".section\t .data\n" +
-                ".section\t .text\n" +
-                ".globl\t main\n";
+        return ".section .data\n" +
+                ".section .text\n" +
+                ".globl main\n";
     }
 
-    public String generateFunctionPrologue() {
+    // 在函数前奏中为局部变量预留空间
+    public String generateFunctionPrologue(int localVariablesSpace) {
         return "main:\n" +
-                "push\t ebp\n" +
-                "mov\t ebp, \tesp\n";
+                "push %rbp\n" +
+                "movq %rbp, %rsp\n" +
+                "subq %rsp, " + localVariablesSpace + "\n";  // Allocate space for local variables
     }
 
     public String generateFunctionEpilogue() {
-        return "mov\t eax, 0\n" +
-                "leave\n" +
+        return "leave\n" +
                 "ret\n";
     }
 
-    public String generateFromAST(ASTNode node) {
+    public String generateFromAST(ASTNode node) throws Exception {
         return generateAssembly(node);
     }
 
-    private String generateAssembly(ASTNode node) {
+    private String generateAssembly(ASTNode node) throws Exception {
         if (node instanceof BinaryOpNode) {
             return generateFromBinaryOpNode((BinaryOpNode) node);
         } else if (node instanceof IdentifierNode) {
             return generateFromIdentifierNode((IdentifierNode) node);
         } else if (node instanceof IntLiteralNode) {
             return generateFromIntLiteralNode((IntLiteralNode) node);
+        } else if (node instanceof VarDeclarationNode) {
+            return generateFromVarDeclarationNode((VarDeclarationNode) node);
+        } else if (node instanceof AssignStatementNode) {
+            return generateFromAssignStatementNode((AssignStatementNode) node);
         }
         return "";
     }
 
-
-    private String generateFromBinaryOpNode(BinaryOpNode binOp) {
-        System.out.println("Generating assembly for BinaryOpNode: " + binOp);
+    private String generateFromBinaryOpNode(BinaryOpNode binOp) throws Exception {
         String leftCode = generateAssembly(binOp.getLeft());
         String rightCode = generateAssembly(binOp.getRight());
         String operation = binOp.getOperator();
         StringBuilder assemblyCode = new StringBuilder();
 
-        if (binOp.getLeft() instanceof IntLiteralNode || binOp.getLeft() instanceof IdentifierNode) {
-            assemblyCode.append(leftCode);
-        } else {
-            assemblyCode.append(leftCode);
-            assemblyCode.append("push	 eax\n");
-        }
-
-        if (binOp.getRight() instanceof IntLiteralNode || binOp.getRight() instanceof IdentifierNode) {
-            assemblyCode.append("mov	 ebx, 	eax\n");
-            assemblyCode.append(rightCode);
-        } else {
-            assemblyCode.append(rightCode);
-            assemblyCode.append("pop	 ebx\n");
-        }
+        assemblyCode.append(leftCode);
+        assemblyCode.append("push %rax\n");
+        assemblyCode.append(rightCode);
+        assemblyCode.append("pop %rbx\n");
 
         switch (operation) {
             case "+":
-                assemblyCode.append("add	 eax, 	ebx\n");
+                assemblyCode.append("addq %rax, %rbx\n");
                 break;
             case "-":
-                assemblyCode.append("sub	 eax, 	ebx\n");
+                assemblyCode.append("subq %rax, %rbx\n");
                 break;
             case "*":
-                assemblyCode.append("mul	 ebx\n");
+                assemblyCode.append("mulq %rbx\n"); // This will multiply %rax by %rbx, result in edx:%rax
                 break;
             case "/":
-                assemblyCode.append("div	 ebx\n");
+                assemblyCode.append("xor edx, edx\n"); // Clear edx
+                assemblyCode.append("divq %rbx\n");
                 break;
+            default:
+                throw new Exception("Unsupported binary operation: " + operation);
         }
         return assemblyCode.toString();
     }
 
     private String generateFromIdentifierNode(IdentifierNode idNode) {
-        System.out.println("Generating assembly for IdentifierNode: " + idNode);
         String varName = idNode.getName();
         if (!symbolTable.containsKey(varName)) {
             stackOffset += 4;
             symbolTable.put(varName, stackOffset);
         }
         int varOffset = symbolTable.get(varName);
-        return String.format("mov\t eax, \t[ebp-%d]\n", varOffset);
+        return String.format("movq %rax, [%rbp-%d]\n", varOffset);
     }
 
     private String generateFromIntLiteralNode(IntLiteralNode intNode) {
-        System.out.println("Generating assembly for IntLiteralNode: " + intNode);
-        return "mov\t eax, \t" + intNode.getValue() + "\n";
+        return "movq %rax, " + intNode.getValue() + "\n";
+    }
+
+
+    private String generateFromVarDeclarationNode(VarDeclarationNode varDeclNode) throws Exception {
+        StringBuilder assemblyCode = new StringBuilder();
+        String varName = varDeclNode.getVarName();
+
+        if (!symbolTable.containsKey(varName)) {
+            stackOffset -= 4;  // Assuming each variable takes 4 bytes.
+            symbolTable.put(varName, stackOffset);
+        }
+
+        // If there's an initializer, generate initialization code
+        if (varDeclNode.getInitializer() != null) {
+            assemblyCode.append(generateAssembly(varDeclNode.getInitializer()));
+            int varOffset = symbolTable.get(varName);
+            assemblyCode.append(String.format("movq dword [%rbp-%d], %rax\n", varOffset));
+        }
+        return assemblyCode.toString();
+    }
+
+
+    private String generateFromAssignStatementNode(AssignStatementNode assignNode) throws Exception {
+        StringBuilder assemblyCode = new StringBuilder();
+        String varName = assignNode.getVarName();
+
+        // Only addq the variable to the symbolTable and update the stackOffset if it's not already present.
+        if (!symbolTable.containsKey(varName)) {
+            stackOffset -= 4;  // Assuming each variable takes 4 bytes.
+            symbolTable.put(varName, stackOffset);
+        }
+
+        assemblyCode.append(generateAssembly(assignNode.getExpression()));
+        int varOffset = symbolTable.get(varName);
+        assemblyCode.append(String.format("movq dword [%rbp-%d], %rax", varOffset));
+
+        return assemblyCode.toString();
+    }
+
+
+    public void setLocalVariablesCount(int count) {
+        this.stackOffset = count * 4;  // Assuming each variable takes 4 bytes.
     }
 }
+

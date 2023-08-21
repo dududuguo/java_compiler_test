@@ -30,6 +30,126 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitStat(SimpleExprParser.StatContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code BaseExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBaseExpr(SimpleExprParser.BaseExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BaseExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBaseExpr(SimpleExprParser.BaseExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddExpr(SimpleExprParser.AddExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddExpr(SimpleExprParser.AddExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SubtractExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubtractExpr(SimpleExprParser.SubtractExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SubtractExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubtractExpr(SimpleExprParser.SubtractExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BaseMultiplyExpr}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBaseMultiplyExpr(SimpleExprParser.BaseMultiplyExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BaseMultiplyExpr}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBaseMultiplyExpr(SimpleExprParser.BaseMultiplyExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultiplicationExpression}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicationExpression(SimpleExprParser.MultiplicationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultiplicationExpression}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicationExpression(SimpleExprParser.MultiplicationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DivideExpr}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivideExpr(SimpleExprParser.DivideExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DivideExpr}
+	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivideExpr(SimpleExprParser.DivideExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdExpr}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExpr(SimpleExprParser.IdExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdExpr}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExpr(SimpleExprParser.IdExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntLiteral(SimpleExprParser.IntLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntLiteral(SimpleExprParser.IntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FloatLiteral}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloatLiteral(SimpleExprParser.FloatLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FloatLiteral}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloatLiteral(SimpleExprParser.FloatLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenExpr(SimpleExprParser.ParenExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link SimpleExprParser#atomicExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenExpr(SimpleExprParser.ParenExprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#assignStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -79,36 +199,6 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPreDecrementStatement(SimpleExprParser.PreDecrementStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpr(SimpleExprParser.ExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpr(SimpleExprParser.ExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#multiplyExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplyExpr(SimpleExprParser.MultiplyExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#multiplyExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplyExpr(SimpleExprParser.MultiplyExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#atomicExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomicExpr(SimpleExprParser.AtomicExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#atomicExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomicExpr(SimpleExprParser.AtomicExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#condi}.
 	 * @param ctx the parse tree
@@ -230,6 +320,16 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 */
 	void exitParamList(SimpleExprParser.ParamListContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameterList(SimpleExprParser.ParameterListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpleExprParser#parameterList}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameterList(SimpleExprParser.ParameterListContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SimpleExprParser#param}.
 	 * @param ctx the parse tree
 	 */
@@ -259,14 +359,4 @@ public interface SimpleExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SimpleExprParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameterList(SimpleExprParser.ParameterListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleExprParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameterList(SimpleExprParser.ParameterListContext ctx);
 }
