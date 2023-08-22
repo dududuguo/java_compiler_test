@@ -47,4 +47,9 @@ public class Registers {
         int size = usedRegisters.size();
         return size < 2 ? null : usedRegisters.get(size - 2);
     }
+
+    public void freeRegister(String register) {
+        availableRegisters.push(register);
+        usedRegisters.remove(register);
+    }
 }

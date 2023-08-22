@@ -4,7 +4,8 @@ public class Symbol {
     private String name;
     private String type;
     private String scope;
-    private Object additionalInfo;
+
+    private int offset;
 
     public Symbol(String name, String type, String scope) {
         this.name = name;
@@ -32,17 +33,18 @@ public class Symbol {
         return scope;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
     public void setScope(String scope) {
         this.scope = scope;
     }
 
-    public Object getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(Object additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
 }
 
 

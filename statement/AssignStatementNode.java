@@ -5,11 +5,15 @@ import AST.ASTNode;
 public class AssignStatementNode extends ASTNode {
     private final String varName;
     private final ASTNode expression;
+    private int offset;
+    private String VarType;
 
-    public AssignStatementNode(String varName, ASTNode expression) {
+    public AssignStatementNode(String varName, ASTNode expression, String VarType, int offset) {
         super(varName);
         this.varName = varName;
         this.expression = expression;
+        this.VarType = VarType;
+        this.offset = offset;
     }
 
     public String getVarName() {
@@ -18,6 +22,22 @@ public class AssignStatementNode extends ASTNode {
 
     public ASTNode getExpression() {
         return expression;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setVarType(String VarType) {
+        this.VarType = VarType;
+    }
+
+    public String getVarType() {
+        return VarType;
     }
 
     @Override

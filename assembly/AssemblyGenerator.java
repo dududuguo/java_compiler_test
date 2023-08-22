@@ -16,6 +16,7 @@ public class AssemblyGenerator {
     private Map<String, Integer> OffsetTable = new HashMap<>();
     private Registers registers = new Registers();
     private int stackOffset = 0;
+    private final int X86Offset=8;
 
 
     public AssemblyGenerator() {
@@ -28,7 +29,7 @@ public class AssemblyGenerator {
     }
 
     // 在函数前奏中为局部变量预留空间
-    public String generateFunctionPrologue(int localVariablesSpace) {
+    public String generateFunctionPrologue(long localVariablesSpace) {
         return "main:\n" +
                 "\tpushq \t%rbp\n" +
                 "\tmovq  \t%rsp, \t%rbp\n" +
@@ -111,8 +112,6 @@ public class AssemblyGenerator {
         return assemblyCode.toString();
     }
 
-
-
     private String generateFromIdentifierNode(IdentifierNode idNode) {
         String varName = idNode.getName();
         if (!OffsetTable.containsKey(varName)) {
@@ -136,16 +135,14 @@ public class AssemblyGenerator {
 
     private String generateFromVarDeclarationNode(VarDeclarationNode varDeclNode) throws Exception {
         StringBuilder assemblyCode = new StringBuilder();
-        String varName = varDeclNode.getVarName();
 
         // 如果有初始化器，生成初始化代码
         if (varDeclNode.getInitializer() != null) {
             assemblyCode.append(generateAssembly(varDeclNode.getInitializer()));
-            int varOffset = OffsetTable.get(varName);
             String register = registers.getLastUsedRegister();
             assemblyCode.append("\tmovq \t").append(register).append(", ")
-                    .append(varOffset).append("(%rbp)\n");  // 注意这里的正确语法
-            //registers.freeRegister(register);
+                    .append(X86Offset).append("(%rbp)\n");  // 注意这里的正确语法
+            registers.freeRegister(register);
         }
 
         return assemblyCode.toString();
@@ -159,8 +156,9 @@ public class AssemblyGenerator {
         System.out.println("Debug: AssignStatementNode: " + varName);
 
         if (!OffsetTable.containsKey(varName)) {
-            stackOffset -= 8;  // 假设每个变量在64位系统上占8个字节
+            stackOffset -= X86Offset;  // 假设每个变量在64位系统上占8个字节
             OffsetTable.put(varName, stackOffset);
+            assignNode.setOffset(stackOffset);
             System.out.println("Debug: AssignStatementNode: " + varName + " not found in symbol table, allocating space");
         }
 

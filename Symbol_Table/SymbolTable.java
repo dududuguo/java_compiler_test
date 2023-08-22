@@ -1,14 +1,22 @@
 package Symbol_Table;
 
+import DataType.dataTypes;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-public class  SymbolTable {
+public class SymbolTable {
     private Map<String, Symbol> symbols = new HashMap<>();
+    private long totalOffset = 0;
+    private dataTypes types = new dataTypes();
 
     public void addSymbol(Symbol symbol) {
         symbols.put(symbol.getName(), symbol);
+        totalOffset += types.getDataTypeSize(symbol.getType());
+    }
+
+    public long getTotalOffset() {
+        return symbols.size() * 8L;
     }
 
     public Symbol getSymbol(String name) {
@@ -17,17 +25,5 @@ public class  SymbolTable {
 
     public boolean containsSymbol(String name) {
         return symbols.containsKey(name);
-    }
-
-    public Map<String, Symbol> getAllSymbols() {
-        return symbols;
-    }
-
-    public Set<String> keySet() {
-        return symbols.keySet();
-    }
-
-    public Map<String, Symbol> getSymbols() {
-        return symbols;
     }
 }

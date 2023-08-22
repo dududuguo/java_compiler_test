@@ -45,7 +45,9 @@ public class SimpleExprTest {
         // 3. Generate assembly code from AST
         AssemblyGenerator generator = new AssemblyGenerator();
         String headers = generator.generateInitialAssemblyHeaders();
-        int localVariablesSpace = astConstructor.getSymbolTable().getSymbols().size() * 8;  // Calculate space based on number of variables
+
+        // Calculate space based on number of variables
+        long localVariablesSpace = astConstructor.getSymbolTable().getTotalOffset();
         String prologue = generator.generateFunctionPrologue(localVariablesSpace);
         String body = generator.generateFromAST(ast);
         String epilogue = generator.generateFunctionEpilogue();

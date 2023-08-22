@@ -5,6 +5,8 @@ import java.util.List;
 
 public abstract class ASTNode {
     protected String value;
+    protected int offset;
+    protected String VarType;
     private List<ASTNode> children = new ArrayList<>();
 
     public ASTNode(String value) {
