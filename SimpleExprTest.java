@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class SimpleExprTest {
     public static void main(String[] args) throws Exception {
@@ -33,23 +34,28 @@ public class SimpleExprTest {
         SimpleExprParser parser = new SimpleExprParser(tokens);
         ParseTree tree = parser.prog();
 
+
         // 2. Construct AST from the parse tree
         ASTConstructorListener astConstructor = new ASTConstructorListener();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(astConstructor, tree);
         ASTNode ast = astConstructor.getAST();
+        System.out.println("ast = " + Arrays.toString(ast.getChildren()));
 
         // 3. Generate assembly code from AST
         AssemblyGenerator generator = new AssemblyGenerator();
         String headers = generator.generateInitialAssemblyHeaders();
-        String prologue = generator.generateFunctionPrologue(12);  // 3 variables * 4 bytes each = 12 bytes
-        String body = generator.generateFromAST(ast);  // rootNode 是从ANTLR解析器获得的AST树的根
+        int localVariablesSpace = astConstructor.getSymbolTable().getSymbols().size() * 8;  // Calculate space based on number of variables
+        String prologue = generator.generateFunctionPrologue(localVariablesSpace);
+        String body = generator.generateFromAST(ast);
         String epilogue = generator.generateFunctionEpilogue();
-        String assemblyCode = headers + prologue + body + epilogue;
+        String returnStatement = generator.generateReturnStatement();
+        String assemblyCode = headers + prologue + body + returnStatement + epilogue;
+
 
         // write to file
         String program = "program";
-        String fileName = program+ ".s";
+        String fileName = program + ".s";
         writeToFile(fileName, assemblyCode);
         System.out.println("Writing to " + fileName);
 
