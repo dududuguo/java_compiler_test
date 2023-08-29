@@ -6,6 +6,7 @@ import AST.LiteralNode.IdentifierNode;
 import AST.LiteralNode.IntLiteralNode;
 import Register.Registers;
 import statement.AssignStatementNode;
+import statement.FunctionSymbol;
 import statement.VarDeclarationNode;
 
 import java.util.HashMap;
@@ -72,6 +73,10 @@ public class AssemblyGenerator {
             return generateFromAssignStatementNode((AssignStatementNode) node);
         }
         return "";
+    }
+
+    private String generateFromFunctionSymbol(FunctionSymbol node) {
+        return null;
     }
 
     private String generateFromBinaryOpNode(BinaryOpNode binOp) throws Exception {

@@ -2,7 +2,6 @@
 package ANTLR_code;
 
 
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -43,13 +42,49 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBaseExpr(SimpleExprParser.BaseExprContext ctx) { }
+	@Override public void enterEqualExpr(SimpleExprParser.EqualExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBaseExpr(SimpleExprParser.BaseExprContext ctx) { }
+	@Override public void exitEqualExpr(SimpleExprParser.EqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallerEqualExpr(SimpleExprParser.SmallerEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallerEqualExpr(SimpleExprParser.SmallerEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBiggerEqualExpr(SimpleExprParser.BiggerEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBiggerEqualExpr(SimpleExprParser.BiggerEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAndOrExpr(SimpleExprParser.AndOrExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAndOrExpr(SimpleExprParser.AndOrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -67,6 +102,78 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNotEqualExpr(SimpleExprParser.NotEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotEqualExpr(SimpleExprParser.NotEqualExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBaseExpr(SimpleExprParser.BaseExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBaseExpr(SimpleExprParser.BaseExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallerExpr(SimpleExprParser.SmallerExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallerExpr(SimpleExprParser.SmallerExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringLiteral(SimpleExprParser.StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringLiteral(SimpleExprParser.StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBiggerExpr(SimpleExprParser.BiggerExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBiggerExpr(SimpleExprParser.BiggerExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArithmeticExpr(SimpleExprParser.ArithmeticExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArithmeticExpr(SimpleExprParser.ArithmeticExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSubtractExpr(SimpleExprParser.SubtractExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -74,6 +181,18 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSubtractExpr(SimpleExprParser.SubtractExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCallFunctionExpr(SimpleExprParser.CallFunctionExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCallFunctionExpr(SimpleExprParser.CallFunctionExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -223,6 +342,18 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterReturnStatement(SimpleExprParser.ReturnStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnStatement(SimpleExprParser.ReturnStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCondi(SimpleExprParser.CondiContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -230,6 +361,18 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCondi(SimpleExprParser.CondiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComparisonExpr(SimpleExprParser.ComparisonExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComparisonExpr(SimpleExprParser.ComparisonExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -271,13 +414,25 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(SimpleExprParser.DeclarationContext ctx) { }
+	@Override public void enterCallFunction(SimpleExprParser.CallFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(SimpleExprParser.DeclarationContext ctx) { }
+	@Override public void exitCallFunction(SimpleExprParser.CallFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -295,37 +450,37 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMainFunction(SimpleExprParser.MainFunctionContext ctx) { }
+	@Override public void enterReturnTypeFunction(SimpleExprParser.ReturnTypeFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMainFunction(SimpleExprParser.MainFunctionContext ctx) { }
+	@Override public void exitReturnTypeFunction(SimpleExprParser.ReturnTypeFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNormalFunction(SimpleExprParser.NormalFunctionContext ctx) { }
+	@Override public void enterVoidFunction(SimpleExprParser.VoidFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNormalFunction(SimpleExprParser.NormalFunctionContext ctx) { }
+	@Override public void exitVoidFunction(SimpleExprParser.VoidFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameter(SimpleExprParser.ParameterContext ctx) { }
+	@Override public void enterTypeExceptVoid(SimpleExprParser.TypeExceptVoidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameter(SimpleExprParser.ParameterContext ctx) { }
+	@Override public void exitTypeExceptVoid(SimpleExprParser.TypeExceptVoidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -338,18 +493,6 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitType(SimpleExprParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBlock(SimpleExprParser.BlockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBlock(SimpleExprParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -391,6 +534,30 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBolockReturn(SimpleExprParser.BolockReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBolockReturn(SimpleExprParser.BolockReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockVoid(SimpleExprParser.BlockVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockVoid(SimpleExprParser.BlockVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVarDeclaration(SimpleExprParser.VarDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -403,13 +570,49 @@ public class SimpleExprBaseListener implements SimpleExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx) { }
+	@Override public void enterMain(SimpleExprParser.MainContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx) { }
+	@Override public void exitMain(SimpleExprParser.MainContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameter(SimpleExprParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameter(SimpleExprParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfStatement(SimpleExprParser.IfStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfStatement(SimpleExprParser.IfStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfBOLOCK(SimpleExprParser.IfBOLOCKContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfBOLOCK(SimpleExprParser.IfBOLOCKContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

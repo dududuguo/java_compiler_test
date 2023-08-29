@@ -44,7 +44,6 @@ public class Symbol {
     public void setScope(String scope) {
         this.scope = scope;
     }
-
 }
 
 

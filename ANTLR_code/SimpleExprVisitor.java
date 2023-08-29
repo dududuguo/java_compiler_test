@@ -24,12 +24,33 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStat(SimpleExprParser.StatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BaseExpr}
+	 * Visit a parse tree produced by the {@code EqualExpr}
 	 * labeled alternative in {@link SimpleExprParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBaseExpr(SimpleExprParser.BaseExprContext ctx);
+	T visitEqualExpr(SimpleExprParser.EqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallerEqualExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallerEqualExpr(SimpleExprParser.SmallerEqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BiggerEqualExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBiggerEqualExpr(SimpleExprParser.BiggerEqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AndOrExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndOrExpr(SimpleExprParser.AndOrExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AddExpr}
 	 * labeled alternative in {@link SimpleExprParser#expr}.
@@ -38,12 +59,61 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAddExpr(SimpleExprParser.AddExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NotEqualExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotEqualExpr(SimpleExprParser.NotEqualExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BaseExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBaseExpr(SimpleExprParser.BaseExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallerExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallerExpr(SimpleExprParser.SmallerExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLiteral(SimpleExprParser.StringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BiggerExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBiggerExpr(SimpleExprParser.BiggerExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArithmeticExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArithmeticExpr(SimpleExprParser.ArithmeticExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SubtractExpr}
 	 * labeled alternative in {@link SimpleExprParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSubtractExpr(SimpleExprParser.SubtractExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallFunctionExpr}
+	 * labeled alternative in {@link SimpleExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallFunctionExpr(SimpleExprParser.CallFunctionExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BaseMultiplyExpr}
 	 * labeled alternative in {@link SimpleExprParser#multiplyExpr}.
@@ -124,11 +194,23 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPreDecrementStatement(SimpleExprParser.PreDecrementStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#returnStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatement(SimpleExprParser.ReturnStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#condi}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCondi(SimpleExprParser.CondiContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#comparisonExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparisonExpr(SimpleExprParser.ComparisonExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#loop}.
 	 * @param ctx the parse tree
@@ -148,11 +230,17 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForIter(SimpleExprParser.ForIterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#declaration}.
+	 * Visit a parse tree produced by {@link SimpleExprParser#callFunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclaration(SimpleExprParser.DeclarationContext ctx);
+	T visitCallFunction(SimpleExprParser.CallFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#functionDefinition}.
 	 * @param ctx the parse tree
@@ -160,35 +248,29 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionDefinition(SimpleExprParser.FunctionDefinitionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#mainFunction}.
+	 * Visit a parse tree produced by {@link SimpleExprParser#returnTypeFunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMainFunction(SimpleExprParser.MainFunctionContext ctx);
+	T visitReturnTypeFunction(SimpleExprParser.ReturnTypeFunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#normalFunction}.
+	 * Visit a parse tree produced by {@link SimpleExprParser#voidFunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNormalFunction(SimpleExprParser.NormalFunctionContext ctx);
+	T visitVoidFunction(SimpleExprParser.VoidFunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#parameter}.
+	 * Visit a parse tree produced by {@link SimpleExprParser#typeExceptVoid}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameter(SimpleExprParser.ParameterContext ctx);
+	T visitTypeExceptVoid(SimpleExprParser.TypeExceptVoidContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitType(SimpleExprParser.TypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(SimpleExprParser.BlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#paramList}.
 	 * @param ctx the parse tree
@@ -208,15 +290,45 @@ public interface SimpleExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam(SimpleExprParser.ParamContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#bolockReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBolockReturn(SimpleExprParser.BolockReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#blockVoid}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockVoid(SimpleExprParser.BlockVoidContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SimpleExprParser#varDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVarDeclaration(SimpleExprParser.VarDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleExprParser#functionDeclaration}.
+	 * Visit a parse tree produced by {@link SimpleExprParser#main}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunctionDeclaration(SimpleExprParser.FunctionDeclarationContext ctx);
+	T visitMain(SimpleExprParser.MainContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameter(SimpleExprParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#ifStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatement(SimpleExprParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpleExprParser#ifBOLOCK}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfBOLOCK(SimpleExprParser.IfBOLOCKContext ctx);
 }

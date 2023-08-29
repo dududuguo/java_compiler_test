@@ -1,6 +1,7 @@
 package Symbol_Table;
 
 import DataType.dataTypes;
+import statement.FunctionSymbol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,11 @@ public class SymbolTable {
         totalOffset += types.getDataTypeSize(symbol.getType());
     }
 
+    public void add(String name, Symbol symbol) {
+        symbols.put(name, symbol);
+        totalOffset += types.getDataTypeSize(symbol.getType());
+    }
+
     public long getTotalOffset() {
         return symbols.size() * 8L;
     }
@@ -25,5 +31,9 @@ public class SymbolTable {
 
     public boolean containsSymbol(String name) {
         return symbols.containsKey(name);
+    }
+
+    public Symbol find(String name){
+        return symbols.get(name);
     }
 }

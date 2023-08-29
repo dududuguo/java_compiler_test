@@ -14,6 +14,7 @@ public class AssignStatementNode extends ASTNode {
         this.expression = expression;
         this.VarType = VarType;
         this.offset = offset;
+        this.addChild(expression); // 添加 expression 作为子节点
     }
 
     public String getVarName() {

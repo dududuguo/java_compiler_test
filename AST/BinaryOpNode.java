@@ -1,5 +1,11 @@
 package AST;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Setter
+@Getter
 public class BinaryOpNode extends ASTNode{
     // BinaryOpNode.java
         public ASTNode left;
@@ -13,7 +19,6 @@ public class BinaryOpNode extends ASTNode{
         this.operator = op;
     }
 
-    @Override
     public void print(int depth) {
         printIndent(depth);
         System.out.println("BinaryExpr (" + operator + ")");
@@ -21,27 +26,8 @@ public class BinaryOpNode extends ASTNode{
         if (right != null) right.print(depth + 1);
     }
 
-    public ASTNode getLeft() {
-        return left;
-    }
-
     @Override
     public ASTNode[] getChildren() {
         return super.getChildren();
-    }
-
-    public ASTNode getRight() {
-        return right;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-    public void setLeft(ASTNode left) {
-        this.left = left;
-    }
-
-    public void setRight(ASTNode right) {
-        this.right = right;
     }
 }

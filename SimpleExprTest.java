@@ -19,11 +19,16 @@ import java.util.Arrays;
 public class SimpleExprTest {
     public static void main(String[] args) throws Exception {
         System.out.println("Loading");
-        InputStream is = System.in;
+        InputStream is;
         String file;
+
+
         if (args.length > 0) {
             file = args[0];
             is = new FileInputStream(file);
+        } else {
+            System.out.println("Please input the file name");
+            return;
         }
 
         CharStream input = CharStreams.fromStream(is);
@@ -40,29 +45,33 @@ public class SimpleExprTest {
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(astConstructor, tree);
         ASTNode ast = astConstructor.getAST();
-        System.out.println("ast = " + Arrays.toString(ast.getChildren()));
+        //System.out.println("ast = " + Arrays.toString(ast.getChildren()));
+        System.out.println("ast length = " +ast.getChildren().length);
+        for (int i = 0; i < ast.getChildren().length; i++) {
+            System.out.println("ast = " + ast.getChildren()[i]);
+        }
 
-        // 3. Generate assembly code from AST
-        AssemblyGenerator generator = new AssemblyGenerator();
-        String headers = generator.generateInitialAssemblyHeaders();
-
-        // Calculate space based on number of variables
-        long localVariablesSpace = astConstructor.getSymbolTable().getTotalOffset();
-        String prologue = generator.generateFunctionPrologue(localVariablesSpace);
-        String body = generator.generateFromAST(ast);
-        String epilogue = generator.generateFunctionEpilogue();
-        String returnStatement = generator.generateReturnStatement();
-        String assemblyCode = headers + prologue + body + returnStatement + epilogue;
-
-
-        // write to file
-        String program = "program";
-        String fileName = program + ".s";
-        writeToFile(fileName, assemblyCode);
-        System.out.println("Writing to " + fileName);
-
-        // 4. Print the generated assembly code
-        System.out.println(assemblyCode);
+//        // 3. Generate assembly code from AST
+//        AssemblyGenerator generator = new AssemblyGenerator();
+//        String headers = generator.generateInitialAssemblyHeaders();
+//
+//        // Calculate space based on number of variables
+//        long localVariablesSpace = astConstructor.getSymbolTable().getTotalOffset();
+//        String prologue = generator.generateFunctionPrologue(localVariablesSpace);
+//        String body = generator.generateFromAST(ast);
+//        String epilogue = generator.generateFunctionEpilogue();
+//        String returnStatement = generator.generateReturnStatement();
+//        String assemblyCode = headers + prologue + body + returnStatement + epilogue;
+//
+//
+//        // write to file
+//        String program = "program";
+//        String fileName = program + ".s";
+//        writeToFile(fileName, assemblyCode);
+//        System.out.println("Writing to " + fileName);
+//
+//        // 4. Print the generated assembly code
+//        System.out.println(assemblyCode);
     }
 
     private static void writeToFile(String fileName, String assemblyCode) {
