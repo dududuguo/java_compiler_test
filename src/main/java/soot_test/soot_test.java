@@ -11,7 +11,7 @@ import java.io.IOException;
 public class soot_test {
 
     public static void main(String[] args) {
-        String yourClassPath = "C:\\Users\\11388\\IdeaProjects\\demo\\target\\classes";
+        String yourClassPath = "your path";
         String sootClassPath = yourClassPath + ";" + Scene.v().getSootClassPath();
         Scene.v().setSootClassPath(sootClassPath);
         String className = "sourceFile/q1.c";
