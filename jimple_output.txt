@@ -1,0 +1,18 @@
+Method: <init>
+r0 := @this: q1
+specialinvoke r0.<java.lang.Object: void <init>()>()
+return
+
+Method: foo
+r1 := @this: q1
+$r0 = <java.lang.System: java.io.PrintStream out>
+virtualinvoke $r0.<java.io.PrintStream: void println(int)>(3)
+return
+
+Method: main
+r1 := @parameter0: java.lang.String[]
+$r0 = new q1
+specialinvoke $r0.<q1: void <init>()>()
+virtualinvoke $r0.<q1: void foo()>()
+return
+

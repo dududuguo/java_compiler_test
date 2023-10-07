@@ -1,0 +1,36 @@
+digraph AST {
+    node [shape=box];
+    node_Program_1442045361 [label="Program"];
+    node_foo_1073502961 [label="foo"];
+    node_Program_1442045361 -> node_foo_1073502961;
+    node_foo_1582797472 [label="foo"];
+    node_foo_1073502961 -> node_foo_1582797472;
+    node_b_644166178 [label="b"];
+    node_Program_1442045361 -> node_b_644166178;
+    node_2_892529689 [label="2"];
+    node_b_644166178 -> node_2_892529689;
+    node_c_1757676444 [label="c"];
+    node_Program_1442045361 -> node_c_1757676444;
+    node_4_182738614 [label="4"];
+    node_c_1757676444 -> node_4_182738614;
+    node_d_94345706 [label="d"];
+    node_Program_1442045361 -> node_d_94345706;
+    node_b_670035812 [label="b"];
+    node_Program_1442045361 -> node_b_670035812;
+    node_return_1870647526 [label="return"];
+    node_Program_1442045361 -> node_return_1870647526;
+    node_d_1204167249 [label="d"];
+    node_return_1870647526 -> node_d_1204167249;
+    node_a_1047503754 [label="a"];
+    node_Program_1442045361 -> node_a_1047503754;
+    node_FUNC_CALL_MARKER_1722023916 [label="FUNC_CALL_MARKER"];
+    node_Program_1442045361 -> node_FUNC_CALL_MARKER_1722023916;
+    node_foo_2009787198 [label="foo"];
+    node_Program_1442045361 -> node_foo_2009787198;
+    node_FUNC_CALL_MARKER_1722023916 [label="FUNC_CALL_MARKER"];
+    node_Program_1442045361 -> node_FUNC_CALL_MARKER_1722023916;
+    node_return_32017212 [label="return"];
+    node_Program_1442045361 -> node_return_32017212;
+    node_0_1121454968 [label="0"];
+    node_return_32017212 -> node_0_1121454968;
+}

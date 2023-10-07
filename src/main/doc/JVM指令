@@ -1,0 +1,21 @@
+invokevirtual: call virtual methods
+invokeinterface: cannot optimization by JVM, checking interface implementation at runtime
+invokespecial: call private methods, constructor methods, and super class methods
+invokestatic: call static methods
+invokedynamic: Java7 引入的指令，用于实现动态类型语言的支持以及函数式编程。(Ruby,JS,Python等)
+    1. 更好的动态语言支持：
+        invokedynamic提供了一种机制，使得动态语言在JVM上的性能可以与静态语言相媲美。
+
+    2. 更高的性能：
+        对于某些类型的动态方法调用，invokedynamic可以比传统的方法调用指令提供更高的性能。
+
+    3. 更大的灵活性：
+        invokedynamic允许开发者在运行时确定方法调用的行为，这为开发者提供了更大的灵活性。
+
+    4. Lambda表达式和方法引用：
+        在Java 8中，invokedynamic被用于实现Lambda表达式和方法引用，这两个特性都需要在运行时确定方法调用的行为。
+
+method signature: class name, method name, parameter types
+
+<init>  : constructor method
+<clinit>: static block
